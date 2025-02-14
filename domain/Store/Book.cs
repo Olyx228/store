@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 namespace Store;
 
 public class Book
@@ -17,7 +18,14 @@ public class Book
 
     internal static bool IsIsbn(string s)
     {
-        return false; 
+        if (s == null) 
+            return false;
+
+        s = s.Replace("-", "")
+             .Replace(" ", "")
+             .ToUpper();
+        
+        return Regex.IsMatch(s, @"^ISBN\d{10}(\d{3})?$");
     }
 
 }
